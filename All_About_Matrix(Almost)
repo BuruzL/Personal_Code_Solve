@@ -1,0 +1,145 @@
+#include<stdio.h>
+#include<stdlib.h>
+int **takemat(int row, int col){
+    int **m=(int **)malloc(row*sizeof(int *));
+    if(!m)exit(1);
+    int *data=(int *)malloc(row*col*sizeof(int));
+    if(!data){
+        free(m);
+        exit(1);
+    }
+    for(int i=0; i<row; i++){
+        m[i]=data+i*col;
+    }
+    for(int i=0; i,row; i++){
+        for(int j=0; j<col; j++){
+            if(scanf("%d",&m[i][j])!=1){
+                free(m);
+                free(data);
+                exit(1);
+            }
+        }
+    }
+    return m;
+}
+
+void printMat(int **a, int row, int col){
+    for(int i=0; i<row; i++){
+        for(int j=0; j<col; j++){
+            printf("%d", a[i][j]);
+        }
+        printf("\n");
+    }
+}
+
+int **multiMat(int **a, int ra, int ca, int **b, int rb, int cb){
+    int **c=(int **)malloc(ra*sizeof(int *));
+    if(!c)exit(1);
+    int *data=(int *)malloc(ra*cb*sizeof(int));
+    if(!data){
+        free(c);
+        exit(1);
+    }
+    for(int i=0; i<ra; i++){
+        c[i]=data+i*cb;
+    }
+    for(int i=0; i<ra; i++){
+        for(int j=0; j<cb; j++){
+            int sum=0;
+            for(int k=0; k<ca; k++){
+                sum=sum+a[i][k]*b[k][j];
+            }
+            c[i][j]=sum;
+        }
+    }
+    return c;
+}
+
+int **AddMat(int **a,int ra, int ca, int **b, int rb, int cb){
+    int **m=(int **)malloc(ra*sizeof(int *));
+    if(!m)exit(1);
+    int *data=(int*)malloc(ra*cb*sizeof(int));
+    if(!data){
+        free(m);
+        exit(1);
+    }
+    for(int i=0; i<ra; i++){
+        m[i]=data+i*cb;
+    }
+    for(int i=0; i<ra; i++){
+      for(int j=0; j<cb; j++){
+        int sum=0;
+        sum=a[i][j]+b[i][j];
+        m[i][j]=sum;
+      }
+    }
+    return m;
+}
+
+int **SubsMat(int **a,int ra, int ca, int **b, int rb, int cb){
+    int **m=(int **)malloc(ra*sizeof(int *));
+    if(!m)exit(1);
+    int *data=(int*)malloc(ra*cb*sizeof(int));
+    if(!data){
+        free(m);
+        exit(1);
+    }
+    for(int i=0; i<ra; i++){
+        m[i]=data+i*cb;
+    }
+    for(int i=0; i<ra; i++){
+      for(int j=0; j<cb; j++){
+        int sub=0;
+        sub=a[i][j]-b[i][j];
+        m[i][j]=sub;
+      }
+    }
+    return m;
+}
+
+void freeMat(int **a, int rows){
+   if(!a)return;
+   free(a[0]);
+   free(a);
+}
+
+int **InverseMat(int **a, int r, int c){
+    
+}
+
+int main(void){
+    int ra, ca, rb, cb;
+    printf("Enter the rows and columns for A=");
+    if(scanf("%d%d",&ra, &ca)!=2 || ra<=0 || ca<=0){
+        fprintf(stderr, "Invalid size of A.\n");
+        return 1;
+    }
+    printf("Enter the rows and columns for B=");
+    if(scanf("%d%d",&rb, &cb)!=2 || rb<=0 || cb<=0){
+        fprintf(stderr, "Invalid size of B.\n");
+        return 1;
+    }
+
+    printf("Enter elements for A=\n");
+    int **A=takemat(ra, ca);
+
+    printf("Enter elements for B=\n");
+    int **B=takemat(rb, cb);
+
+    printf("\nMatrix A:\n");
+    printMatrix(A, ra, ca);
+
+    printf("\nMatrix B:\n");
+    printMatrix(B, rb, cb);
+
+    int **C=multiMat(A, ra, ca, B, rb, cb);
+    if(C){
+        printMat(C, ra, cb);
+        freeMat(C, ra);
+    }else{
+        fprintf(stderr, "Can't multiply" );
+    }
+    freeMat(A, ra);
+    freeMat(B, rb);
+    return 0;
+}

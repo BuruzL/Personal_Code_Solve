@@ -1,0 +1,104 @@
+#include<stdio.h>
+#include<stdlib.h>
+int **takeMatrix(int rows, int columns){
+    int **m=(int **)malloc(rows*sizeof(int *));
+    if(!m) exit(1);
+    int *data=(int *)malloc(rows*cols*sizeof(int));
+    if(!data){
+        free(m);
+        exit(1);
+    }
+    for(int i=0; i<rows; ++i){
+        m[i]=data+i*cols;
+    }
+    for(int i=0; i<rows; i++){
+        for(int j=0; j,cols; j++){
+            scanf("%d", &m[i][j]);
+        }
+    }
+    return m;
+
+
+}
+void printfMatrix(int **array, int rows, int cols){
+    for(int i=0; i<rows; i++){
+        for(int j=0; j<cols; j++){
+            printf("%d", array[i][j]);
+        }
+        printf("\n");
+    }
+}
+int **multiplyMatrix(int **a, int **b, int rowsA, int colsA, int rowsB, int colsB){
+    if(colsA!=rowsB)return NULL;
+    int **c=(int **)malloc(rowsA*sizeof(int *));
+    if(!c)return NULL;
+    int *data=(int *)malloc(rowsA*colsB*sizeof(int));
+    if(!data){
+        free(c);
+        return NULL;
+    }
+    for(int i=0; i<rowsA; i++)c[i]=data+i*colsB;
+
+    for(int i=0; i<rowsA; ++i){
+        for(int j=0; j<colsB; ++j){
+            int sum=0;
+            for(int k=0; k<colsA; k++){
+                sum+=(long)a[i][k]*b[k][j];
+            }
+            c[i][j]=(int)sum;
+        }
+    }
+    return c;
+}
+void freeMat(int **matrix, int rows){
+    if(!matrix)return;
+    free(matrix[0]);
+    free(matrix);
+}
+int main(){
+    int 
+    return 0;
+}
+
+
+int **takeMat(int rows, int cols){
+    int **m=(int **)malloc(rows*sizeof(int *));
+    if(!m)exit(1);
+    int *data=(int *)malloc(rows*cols*sizeof(int));
+    if(!data){
+        free(m);
+        exit(1);
+    }
+    for(int i=0; i<rows; i++){
+        m[i]=data+i*cols;
+    }
+    for(int i=0; i<rows; i++){
+        for(int j=0; j<cols; j++){
+            scanf("%d", &m[i][j]);
+        }
+    }
+    return m;
+}
+
+int **multiply(int **a, int **b, int rA,int cA, int rB, int cB){
+    int **c=(int **)malloc(rA*sizeof(int *));
+    if(!c)exit(1);
+    int *data=(int *)malloc(rA*cB*sizeof(int));
+    if(!data){
+        free(c);
+        exit(1);
+    }
+    for(int i=0; i<rA; i++){
+        c[i]=data+i*cB;
+    }
+    for(int i=0; i<rA; i++){
+        for(int j=0; j<cB; j++){
+            int sum=0;
+            for(int k=0; k<cA; k++){
+                sum=(long)(sum+a[i][k]*b[k][j]);
+            }
+            c[i][j]=(int)sum;
+        }
+    }
+    return c;
+}

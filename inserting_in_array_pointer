@@ -1,0 +1,14 @@
+void insert(int *a, int in, int idx, int len){
+    int *newa=(int *)malloc((len+1)*sizeof(int));
+    for(int i=0; i<idx; i++)newa[i]=a[i];
+    newa[idx]=in;
+    for(int i=idx+1; i<len+1; i++)newa[i]=a[i-1];
+
+    free(a);
+
+    a=malloc(sizeof(int)*(len+1));
+    for(int i=0; i<len+1; i++){
+        a[i]=newa[i];
+    }
+    free(newa);
+}

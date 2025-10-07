@@ -1,0 +1,26 @@
+void mystrcpy(char *s, char *d){
+    while(*s!=0 && *d!=0){
+        *d=*s;
+        d++;
+        s++;
+    }
+}
+
+void mystrconcat(char *s, char *d){
+    while(*d!=0)d++;
+    while(*s!=0){
+        *d=*s;
+        d++;
+        s++;
+    }
+}
+
+int mystrcmp(char *str1, char *str2){
+    while(*str1==str2){
+        if(*str1==0)return 0;
+        str1++;
+        str2++;
+    }
+    if(*str1>*str2)return 1;
+    else return -1;
+}

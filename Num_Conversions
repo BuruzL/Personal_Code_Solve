@@ -1,0 +1,104 @@
+#include<stdio.h>
+#include<math.h>
+
+int deciToBin(int n){
+    int bin=0,i=1;
+    int rem;
+    while(n!=0){
+        rem=n%2;
+        n/=2;
+        bin+=rem*i;
+        i*=10;
+    }
+    return bin;
+}
+int deciToOct(int n){
+    int oct=0,i=1;
+    int rem;
+
+    while(n!=0){
+       rem=n%8;
+       n/=8;
+       oct+=rem*i;
+       i*=10;
+    }
+    return oct;
+
+}
+void decimalToHexadecimal(int n) {
+    char hex[20];
+    int i = 0, remainder;
+
+    while (n != 0) {
+        remainder = n % 16;
+        if (remainder < 10)
+            hex[i++] = remainder + 48; // 0-9
+        else
+            hex[i++] = remainder + 55; // A-F
+        n /= 16;
+    }
+
+    printf("Hexadecimal: ");
+    for (int j = i - 1; j >= 0; j--)
+        printf("%c", hex[j]);
+    printf("\n");
+}
+int binaryToDecimal(long long n) {
+    int decimal = 0, i = 0, remainder;
+
+    while (n != 0) {
+        remainder = n % 10;
+        n /= 10;
+        decimal += remainder * pow(2, i);
+        ++i;
+    }
+    return decimal;
+}
+int octalToDecimal(int n) {
+    int decimal = 0, i = 0, remainder;
+
+    while (n != 0) {
+        remainder = n % 10;
+        n /= 10;
+        decimal += remainder * pow(8, i);
+        ++i;
+    }
+    return decimal;
+}
+
+int hexaToDeci(char hex[]){
+    int len=0,base=1,deci=0;
+    while(hex[len]!='\0')len++;
+    for(int i=len-1; i>=0; i--){
+        if(hex[i]>=0 && hex[i]<=9){
+            deci+=(hex[i]-48)*base;
+        }else if(hex[i]>='A' && hex[i]<='F'){
+            deci+=(hex[i]-55)*base;
+        }else if(hex[i]>='a' && hex[i]<='z'){
+            deci+=(hex[i]-87)*base;
+        }
+        base*=16;
+    }
+    return deci;
+}
+
+int octToDeci(int n){
+    int deci=0,rem,i=1;
+    while(n!=0){
+        rem=n%10;
+        n/=10;
+        deci+=rem*i;
+        i*=8;
+    }
+    return deci;
+}
+
+
+
+int main(){
+    int num;
+    scanf("%d", &num);
+    printf("Deci to Bin=%d\n", deciToBin(num));
+    printf("Deci to oct=%d\n", deciToOct(num));
+    return 0;
+}

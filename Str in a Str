@@ -1,0 +1,20 @@
+#include<stdio.h>
+#include<string.h>
+int main(){
+    char str[1000], pattern[1000];
+    scanf("%s %s", &pattern , &str);
+    int ctr=0;
+    for(int i=0; i+strlen(pattern)<=strlen(str); i++){
+        int good=1;
+        for(int j=0; j<strlen(pattern); j++){
+            if(pattern[j]!=str[i+j])good=0;
+        }
+        if(good)ctr++;
+    }
+    if(ctr){
+        printf("%d", ctr);
+    }else{
+        printf("No\n");
+    }
+    return 0;
+}

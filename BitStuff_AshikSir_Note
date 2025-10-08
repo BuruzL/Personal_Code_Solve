@@ -1,0 +1,101 @@
+// Prints bit pattern of a number x
+void printbits(unsigned x){
+    int s = sizeof(int)*8;
+    int mask = 1<<(s-1),i;
+    for(i = 0; i < s; i++){
+        if(x&mask)
+            printf("1");
+        else
+            printf("0");
+        x = x << 1;
+        if((i+1)%4 == 0)
+            printf(" ");
+    }
+    printf("\n");
+}
+
+// Set p-th bit a number x to 1
+// leaving the other bits unchanged.
+
+int setBit(int x,int p){
+    return (1 << p | x);
+}
+
+// Clear p-th bit a number x by setting it to 0
+// leaving the other bits unchanged.
+int resetBit(int x,int p){
+    return ~(1 << p) & x;
+}
+// Set n bits of x to 1 starting from p-th position
+// leaving the other bits unchanged.
+int setBits(int x,int p, int n){
+    int m = ~(~0 << n) << (p-n+1);
+    return (m | x);
+}
+
+// Set n bits of x to 0 starting from p-th position
+// leaving the other bits unchanged.
+int resetBits(int x,int p, int n){
+    int m = ~(~(~0 << n) << (p-n+1));
+    return (m & x);
+}
+
+// returns x with the n bits that begin at position p set to the
+// rightmost n bits of y, leaving the other bits unchanged.
+
+int setBitsY(int x, int p, int n,int y){
+    int m = ~(~0<<n);
+    int z = m & y;
+    z <<= p-n+1;
+    m <<=p-n+1;
+    m = ~m;
+    return (m & x | z);
+}
+
+
+/* getbits:  get n bits of x from position p (version 1)*/
+
+int getBits(unsigned x,int p,int n){
+    int s = sizeof(x)*8;
+    x = x << (s-1-p);
+    x = x >> (s-n);
+    return x;
+}
+
+/* getbits:  get n bits of from position p (version 2)*/
+int getBits2(unsigned x,int p,int n){
+    int m = ~(~0<<n);
+    x = x >> (p-n+1);
+    return m&x;
+}
+
+// returns the value of the integer x rotated to the right by n positions.
+
+int rightRotate(unsigned x, int n){
+    return (x >> n | x << (sizeof(x)*8-n));
+
+}
+
+// Test function
+
+int main( ){
+    int x = 55;
+
+    printbits(x);
+    x = setBit(x,7);
+    printbits(x);
+    x = resetBit(x,7);
+    printbits(x);
+    x = setBits(x,31,9);
+    printbits(x);
+    int y = getBits2(x,7,4);
+    printbits(y);
+    y = getBits(x,7,4);
+    printbits(y);
+    x = resetBits(x,31,9);
+    printbits(x);
+    y = setBitsY(x,31,2,y);
+    printbits(y);
+    y = rightRotate(x,4);
+    printbits(y);
+}
